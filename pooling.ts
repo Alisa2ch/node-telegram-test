@@ -1,6 +1,6 @@
 import { Bot } from "grammy"
 
-const bot = new Bot(process.env.BOT_TOKEN as string, {
+const bot = new Bot(process.env.TELEGRAM_TOKEN as string, {
     client: {
         apiRoot: process.env.TELEGRAM_SERVER || ""
     }
