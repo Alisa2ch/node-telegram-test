@@ -8,4 +8,6 @@ const bot = new Bot(process.env.TELEGRAM_TOKEN as string, {
 
 bot.on("message:text", ctx => ctx.reply(ctx.message.text))
 
+console.log(process.env)
+
 bot.start()
