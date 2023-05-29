@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node ./pooling.ts"
+    "start:pooling": "ts-node ./pooling.ts",
+    "start:webhook": "ts-node ./webhook.ts"
   },
   "author": "",
   "license": "ISC",
