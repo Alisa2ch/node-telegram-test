@@ -1,15 +1,37 @@
 import { Bot, webhookCallback } from 'grammy';
+import { PrismaClient } from '@prisma/client';
 import express from 'express';
 
+const prisma = new PrismaClient();
 const bot = new Bot(process.env.TELEGRAM_TOKEN as string, {
 	client: {
 		apiRoot: process.env.TELEGRAM_SERVER || ''
 	}
 });
 
-bot.on('message:text', ctx => {
-	console.log(ctx);
-	ctx.reply(ctx.message.text);
+bot.command('/start', async (ctx) => {
+	const user = await prisma.user.create({
+		data: {
+			id: ctx.from?.id,
+			date_create: Date.now(),
+			type: 'basic',
+			language: 'en',
+			type_date: 'ddmmyyyy',
+		}
+	})
+
+	console.log(user);
+	await ctx.reply("welcome");
+})
+
+bot.on('message:text', async ctx => {
+	// console.log(ctx);
+	const userLang = await prisma.user.findUnique({
+		where: {
+			id: ctx.from?.id
+		}
+	})
+	await ctx.reply(JSON.stringify(userLang.language));
 })
 
 const server = express();
@@ -20,10 +42,3 @@ server.post('/webhook', webhookCallback(bot, 'express'));
 server.listen(process.env.TELEGRAM_WEBHOOK_PORT);
 
 bot.api.setWebhook(process.env.TELEGRAM_WEBHOOK_SERVER as string);
-
-console.log([
-	process.env.TELEGRAM_TOKEN,
-	process.env.TELEGRAM_SERVER,
-	process.env.TELEGRAM_WEBHOOK_PORT,
-	process.env.TELEGRAM_WEBHOOK_SERVER
-]);
