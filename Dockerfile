@@ -10,6 +10,8 @@ COPY . ./
 
 RUN echo $DATABASE_URL
 
+RUN npx prisma generate
+
 RUN npx prisma migrate dev --name init
 
 CMD [ "npm", "run", "start:webhook" ]
