@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start:pooling": "ts-node ./pooling.ts",
-    "start:webhook": "ts-node ./webhook.ts"
+    "start:webhook": "ts-node ./webhook.ts",
+    "prisma_migrate":"prisma migrate dev --name init"
   },
   "author": "",
   "license": "ISC",
