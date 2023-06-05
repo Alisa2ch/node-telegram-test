@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . ./
 
-RUN npm run prisma_migrate
+ENTRYPOINT npm run prisma_migrate
 
 CMD [ "npm", "run", "start:webhook" ]
