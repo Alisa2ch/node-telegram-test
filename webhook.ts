@@ -10,17 +10,21 @@ const bot = new Bot(process.env.TELEGRAM_TOKEN as string, {
 });
 
 bot.command('/start', async (ctx) => {
-	const user = await prisma.user.create({
-		data: {
-			id: ctx.from?.id,
-			date_create: Date.now(),
-			type: 'basic',
-			language: 'en',
-			type_date: 'ddmmyyyy',
-		}
-	})
+	if(ctx.hasOwnProperty('from') && ctx.from != null && ctx.from.hasOwnProperty('id')){
+
+		const user = await prisma.user.create({
+			data: {
+				id: ctx.from.id,
+				date_create: Date.now(),
+				type: 'basic',
+				language: 'en',
+				type_date: 'ddmmyyyy',
+			}
+		})
 
 	console.log(user);
+	}
+
 	await ctx.reply("welcome");
 })
 

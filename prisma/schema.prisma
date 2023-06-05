@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id  Int @id @unique
-  date_create DateTime
+  date_create Int
   type String
   language String
   type_date String
