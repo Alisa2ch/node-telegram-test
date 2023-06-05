@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . ./
 
-CMD [ "npx" "prisma" "migrate" "dev" "--name" "init" ]
+RUN echo $DATABASE_URL
+
+RUN npx prisma migrate dev --name init
 
 CMD [ "npm", "run", "start:webhook" ]
