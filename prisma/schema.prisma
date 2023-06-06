@@ -11,8 +11,9 @@ datasource db {
 }
 
 model User {
-  id  Int @id @unique
-  date_create Int
+  id  BigInt @id @unique
+  date_create DateTime @default(now())
+  last_update DateTime @updatedAt
   type String
   language String
   type_date String
