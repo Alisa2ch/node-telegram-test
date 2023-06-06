@@ -8,4 +8,4 @@ RUN npm install
 
 COPY . ./
 
-CMD [ "npm", "run", "prisma_migrate_diff" ]
+CMD [ "npm", "run", "prisma_migrate" ]
