@@ -35,7 +35,7 @@ bot.on('message:text', async ctx => {
 			id: ctx.from?.id
 		}
 	})
-	await ctx.reply(JSON.stringify(userLang.language));
+	await ctx.reply(JSON.stringify(userLang?.language));
 })
 
 const server = express();
