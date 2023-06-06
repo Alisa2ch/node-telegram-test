@@ -1,0 +1,20 @@
+{
+  "name": "prisma_schema",
+  "version": "0.0.1",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "prisma_migrate":"prisma migrate dev --schema=./prisma/schema.prisma",
+    "prisma_migrate_deploy":"prisma migrate deploy --schema=./schema.prisma",
+    "prisma_migrate_resolve": "prisma migrate resolve",
+    
+    "prisma_migrate_diff": "npx prisma migrate diff --from-empty --to-schema-datamodel schema.prisma --script > migrations/0_init/migration.sql",
+    "postprisma_migrate_diff": "npm run prisma_migrate_resolve",
+    "postprisma_migrate_resolve": "npm run prisma_migrate_deploy"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prisma": "^4.15.0"
+  }
+}
