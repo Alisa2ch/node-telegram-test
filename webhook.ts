@@ -1,6 +1,6 @@
 import { Bot, webhookCallback } from 'grammy';
 import { PrismaClient } from '@prisma/client';
-import logger from './logger/logger';
+import logger from './logger';
 import express from 'express';
 
 const prisma = new PrismaClient();
