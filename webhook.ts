@@ -1,5 +1,6 @@
 import { Bot, webhookCallback } from 'grammy';
 import { PrismaClient } from '@prisma/client';
+import logger from './logger/logger';
 import express from 'express';
 
 const prisma = new PrismaClient();
@@ -10,21 +11,29 @@ const bot = new Bot(process.env.TELEGRAM_TOKEN as string, {
 });
 
 bot.command('start', async (ctx) => {
-	console.log(ctx.from != null, ctx?.from?.hasOwnProperty('id'))
+	logger.info(ctx?.from?.id);
+	// console.log(ctx.from != null, ctx?.from?.hasOwnProperty('id'))
 	if(ctx.from != null && ctx.from.hasOwnProperty('id')){
-		const user = await prisma.user.create({
-			data: {
-				id: ctx.from.id,
-				type: 'basic',
-				language: 'en',
-				type_date: 'ddmmyyyy',
-			}
-		})
+		try{
+			const user = await prisma.user.create({
+				data: {
+					id: ctx.from.id,
+					type: 'basic',
+					language: 'en',
+					type_date: 'ddmmyyyy',
+				}
+			})
+			logger.info(user);
+		} catch(e){
+			logger.error(e);
+		}
 
-	console.log(user);
 	}
-
-	await ctx.reply("welcome");
+	try{
+		await ctx.reply("welcome");
+	} catch(e){
+		logger.error(e);
+	}
 })
 
 // bot.on('message:photo', async ctx => {
@@ -42,6 +51,8 @@ server.use(express.json());
 
 server.post('/webhook', webhookCallback(bot, 'express'));
 
-server.listen(process.env.TELEGRAM_WEBHOOK_PORT);
+server.listen(process.env.TELEGRAM_WEBHOOK_PORT, () => {
+	logger.info(`server start on ${process.env.TELEGRAM_WEBHOOK_PORT} port`)
+});
 
 bot.api.setWebhook(process.env.TELEGRAM_WEBHOOK_SERVER as string);
