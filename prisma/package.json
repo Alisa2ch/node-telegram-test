@@ -6,7 +6,7 @@
   "scripts": {
     "prisma_migrate": "prisma migrate dev --schema=./schema.prisma",
     "prisma_migrate_deploy": "prisma migrate deploy --schema=./schema.prisma",
-    "prisma_migrate_resolve": "prisma migrate resolve --applied migrations/0_init/migration.sql",
+    "prisma_migrate_resolve": "prisma migrate resolve --applied 0_init",
     "prisma_migrate_diff": "npx prisma migrate diff --from-empty --to-schema-datamodel schema.prisma --script > migrations/0_init/migration.sql",
     "postprisma_migrate_diff": "npm run prisma_migrate_resolve",
     "postprisma_migrate_resolve": "npm run prisma_migrate_deploy"
