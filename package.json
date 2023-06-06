@@ -9,8 +9,10 @@
     "prisma_migrate":"prisma migrate dev --schema=./prisma/schema.prisma",
     "prisma_migrate_deploy":"prisma migrate deploy --schema=./prisma/schema.prisma",
     "prisma_generate": "prisma generate",
+    "prisma_migrate_resolve": "prisma migrate resolve --applied 0_init",
     "prisma_migrate_diff": "npx prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --script > prisma/migrations/0_init/migration.sql",
-    "postprisma_migrate_diff": "npm run prisma_migrate_deploy",
+    "postprisma_migrate_diff": "npm run prisma_migrate_resolve",
+    "postprisma_migrate_resolve": "npm run prisma_migrate_deploy",
     "prestart:webhook": "npm run prisma_migrate_diff"
   },
   "author": "",
