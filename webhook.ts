@@ -9,7 +9,7 @@ const bot = new Bot(process.env.TELEGRAM_TOKEN as string, {
 	}
 });
 
-bot.command('/start', async (ctx) => {
+bot.command('start', async (ctx) => {
 	if(ctx.hasOwnProperty('from') && ctx.from != null && ctx.from.hasOwnProperty('id')){
 
 		const user = await prisma.user.create({
