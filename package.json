@@ -6,7 +6,7 @@
   "scripts": {
     "start:pooling": "ts-node ./pooling.ts",
     "start:webhook": "ts-node ./webhook.ts",
-    "prisma_migrate":"prisma migrate dev --name init"
+    "prisma_migrate":"prisma migrate deploy --schema=./prisma/schema.prisma"
   },
   "author": "",
   "license": "ISC",
