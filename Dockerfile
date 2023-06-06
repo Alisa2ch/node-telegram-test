@@ -8,4 +8,4 @@ RUN npm install
 
 COPY . ./
 
-CMD [ "npm" "run" "prisma_migrate" "&&" "npm", "run", "start:webhook" ]
+CMD [ "npm", "run", "prisma_migrate", "&&", "npm", "run", "start:webhook" ]
