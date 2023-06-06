@@ -28,7 +28,7 @@ bot.command('start', async (ctx) => {
 	await ctx.reply("welcome");
 })
 
-bot.on('message:text', async ctx => {
+bot.on('message:photo', async ctx => {
 	// console.log(ctx);
 	const userLang = await prisma.user.findUnique({
 		where: {
