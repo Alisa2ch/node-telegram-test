@@ -15,6 +15,7 @@ model User {
   date_create DateTime @default(now())
   last_update DateTime @default(now()) @updatedAt
   type String
+  balance Int @default(0)
   language String
   type_date String
   banned Boolean @default(false)
