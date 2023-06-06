@@ -29,15 +29,15 @@ bot.command('start', async (ctx) => {
 	await ctx.reply("welcome");
 })
 
-bot.on('message:photo', async ctx => {
-	// console.log(ctx);
-	const userLang = await prisma.user.findUnique({
-		where: {
-			id: ctx.from?.id
-		}
-	})
-	await ctx.reply(JSON.stringify(userLang?.language));
-})
+// bot.on('message:photo', async ctx => {
+// 	// console.log(ctx);
+// 	const userLang = await prisma.user.findUnique({
+// 		where: {
+// 			id: ctx.from?.id
+// 		}
+// 	})
+// 	await ctx.reply(JSON.stringify(userLang?.language));
+// })
 
 const server = express();
 server.use(express.json());
