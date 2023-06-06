@@ -13,7 +13,7 @@ datasource db {
 model User {
   id  BigInt @id @unique
   date_create DateTime @default(now())
-  last_update DateTime @updatedAt
+  last_update DateTime @default(now()) @updatedAt
   type String
   language String
   type_date String
