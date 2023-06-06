@@ -15,7 +15,6 @@ bot.command('start', async (ctx) => {
 		const user = await prisma.user.create({
 			data: {
 				id: ctx.from.id,
-				date_create: Date.now(),
 				type: 'basic',
 				language: 'en',
 				type_date: 'ddmmyyyy',
