@@ -7,17 +7,15 @@ echo $VER_MIGRATE
 mkdir -p migrations/$VER_MIGRATE
 
 npx prisma migrate diff \
---from-empty \
---script > migrations/VER_MIGRATE0/migration.sql
-
-npx prisma db pull
-
-npx prisma migrate resolve --applied $VER_MIGRATE0
-
-npx prisma migrate diff \
 --from-migrations migrations \
 --shadow-database-url $SHADOW_DATABASE_URL \
 --to-schema-datamodel schema.prisma \
 --script > migrations/$VER_MIGRATE/migration.sql
+
+npx prisma migrate resolve --applied $VER_MIGRATE
+
+npx prisma migrate diff \
+--from-empty \
+--script > migrations/$VER_MIGRATE0/migration.sql
 
 npx prisma migrate deploy
