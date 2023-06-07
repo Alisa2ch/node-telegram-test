@@ -19,10 +19,10 @@ npx prisma migrate diff \
 echo "prisma migrate resolve"
 npx prisma migrate resolve --applied $VER_MIGRATE
 
-mkdir -p migrations/$VER_MIGRATE0
+# mkdir -p migrations/$VER_MIGRATE0
 
-echo "prisma db pull"
-npx prisma db pull
+# echo "prisma db pull"
+# npx prisma db pull
 
 # echo "prisma migrate diff 2"
 # npx prisma migrate diff \
