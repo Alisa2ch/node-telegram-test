@@ -8,7 +8,6 @@ mkdir -p migrations/$VER_MIGRATE
 mkdir -p migrations/$VER_MIGRATE0
 
 touch migrations/migration_lock.toml
-
 echo 'provider = "postgresql"' >> migrations/migration_lock.toml
 
 npx prisma migrate diff \
