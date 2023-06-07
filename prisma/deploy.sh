@@ -44,6 +44,9 @@ echo 'provider = "postgresql"' >> migrations/migration_lock.toml
 DATABASE_URL="$DATABASE_URL?schema=prod" npx prisma migrate resolve \
 --applied $VER_MIGRATE0
 
+DATABASE_URL="$DATABASE_URL?schema=local" npx prisma migrate resolve \
+--applied $VER_MIGRATE0
+
 mkdir -p migrations/$VER_MIGRATE
 
 npx prisma migrate diff --from-migrations ./migrations \
