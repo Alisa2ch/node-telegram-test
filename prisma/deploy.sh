@@ -5,6 +5,11 @@ VER_MIGRATE="0.0.1.$(shuf -i 0-100000 -n 1)"
 echo $VER_MIGRATE
 
 mkdir -p migrations/$VER_MIGRATE
+mkdir -p migrations/$VER_MIGRATE0
+
+touch migrations/migration_lock.toml
+
+echo 'provider = "postgresql"' >> migrations/migration_lock.toml
 
 npx prisma migrate diff \
 --from-migrations migrations \
