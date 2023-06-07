@@ -64,6 +64,9 @@ echo $VER_MIGRATE
 # DATABASE_URL="$DATABASE_URL?schema=prod" npx prisma migrate deploy
 
 
+touch migrations/migration_lock.toml
+echo 'provider = "postgresql"' >> migrations/migration_lock.toml
+
 mkdir -p migrations/$VER_MIGRATE
 npx prisma migrate diff --from-migrations ./migrations \
 --to-schema-datamodel "./schema.prisma" \
