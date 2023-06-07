@@ -45,7 +45,7 @@ DATABASE_URL="$DATABASE_URL?schema=prod" npx prisma migrate resolve \
 --applied $VER_MIGRATE0
 
 DATABASE_URL="$DATABASE_URL?schema=local" npx prisma migrate resolve \
---applied $VER_MIGRATE0
+--applied $VER_MIGRATE
 
 mkdir -p migrations/$VER_MIGRATE
 
@@ -53,9 +53,10 @@ npx prisma migrate diff --from-migrations ./migrations \
 --to-schema-datamodel "./schema.prisma" \
 --shadow-database-url "$SHADOW_DATABASE_URL" \
 --script > migrations/$VER_MIGRATE/migration.sql
-echo "diff $$VER_MIGRATE0"
+
+echo "diff $VER_MIGRATE0"
 cat migrations/$VER_MIGRATE0/migration.sql
-echo "\ndiff $$VER_MIGRATE"
+echo "diff $VER_MIGRATE"
 cat migrations/$VER_MIGRATE/migration.sql
 
 
