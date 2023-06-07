@@ -15,11 +15,7 @@ npx prisma migrate diff \
 --shadow-database-url $SHADOW_DATABASE_URL \
 --to-schema-datamodel schema.prisma \
 --script > migrations/$VER_MIGRATE/migration.sql
-npx prisma migrate diff \
---from-migrations migrations \
---shadow-database-url $SHADOW_DATABASE_URL \
---to-schema-datamodel schema.prisma \
---script
+cat migrations/$VER_MIGRATE/migration.sql
 echo "prisma migrate resolve"
 npx prisma migrate resolve --applied $VER_MIGRATE
 
