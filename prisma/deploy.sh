@@ -24,10 +24,10 @@ mkdir -p migrations/$VER_MIGRATE0
 echo "prisma db pull"
 npx prisma db pull
 
-echo "prisma migrate diff 2"
-npx prisma migrate diff \
---from-schema-datamodel schema.prisma \
---script > migrations/$VER_MIGRATE0/migration.sql
+# echo "prisma migrate diff 2"
+# npx prisma migrate diff \
+# --from-schema-datamodel schema.prisma \
+# --script > migrations/$VER_MIGRATE0/migration.sql
 
 echo "prisma migrate deploy"
 npx prisma migrate deploy
