@@ -8,4 +8,4 @@ RUN npm install
 
 COPY . ./
 
-CMD [ "deploy.sh" ]
+CMD ["/bin/bash", "deploy.sh"]
