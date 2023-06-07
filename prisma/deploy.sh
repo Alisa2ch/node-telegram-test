@@ -71,7 +71,6 @@ mkdir -p migrations/$VER_MIGRATE
 npx prisma migrate diff \
 --to-schema-datamodel "./schema.prisma" \
 --from-url="$DATABASE_URL?schema=prod" \
-# --shadow-database-url "$SHADOW_DATABASE_URL" \
 --script > migrations/$VER_MIGRATE/migration.sql
 
 cat migrations/$VER_MIGRATE/migration.sql
