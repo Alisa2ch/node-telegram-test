@@ -18,8 +18,10 @@ npx prisma migrate diff \
 
 npx prisma migrate resolve --applied $VER_MIGRATE
 
+npx prisma db pull
+
 npx prisma migrate diff \
---from-empty \
+--from-schema-datamodel schema.prisma \
 --script > migrations/$VER_MIGRATE0/migration.sql
 
 npx prisma migrate deploy
