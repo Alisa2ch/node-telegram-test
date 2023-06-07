@@ -51,4 +51,5 @@ npx prisma migrate diff --from-migrations ./migrations \
 --shadow-database-url "$SHADOW_DATABASE_URL" \
 --script > migrations/$VER_MIGRATE/migration.sql
 
+DATABASE_URL="$DATABASE_URL?schema=local" npx prisma migrate deploy
 DATABASE_URL="$DATABASE_URL?schema=prod" npx prisma migrate deploy
