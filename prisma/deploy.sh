@@ -69,9 +69,8 @@ touch migrations/migration_lock.toml
 echo 'provider = "postgresql"' >> migrations/migration_lock.toml
 
 npx prisma migrate diff \
---from-migrations ./migrations\
+--to-migrations ./migrations\
 --to-schema-datamodel "./schema.prisma" \
---from-url="$DATABASE_URL?schema=prod" \
 --shadow-database-url "$DATABASE_URL?schema=prod" \
 --script > migrations/$VER_MIGRATE/migration.sql
 
