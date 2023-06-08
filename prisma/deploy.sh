@@ -129,3 +129,5 @@ echo $VER_MIGRATE
 cat migrations/$VER_MIGRATE/migration.sql
 
 npx prisma migrate deploy --schema ./schema.prisma
+
+sleep 10000
