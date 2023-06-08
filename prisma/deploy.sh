@@ -65,7 +65,7 @@ echo $VER_MIGRATE
 # DATABASE_URL="$DATABASE_URL?schema=local" npx prisma migrate deploy
 # DATABASE_URL="$DATABASE_URL?schema=prod" npx prisma migrate deploy
 
-mkdir -p migrations/$VER_MIGRATE
+mkdir -p migrations/$VER_MIGRATE0
 
 touch migrations/migration_lock.toml
 echo 'provider = "postgresql"' >> migrations/migration_lock.toml
@@ -77,20 +77,21 @@ echo 'provider = "postgresql"' >> migrations/migration_lock.toml
 npx prisma migrate diff \
 --to-schema-datamodel "./schema.prisma" \
 --from-url "$DATABASE_URL" \
---script > migrations/$VER_MIGRATE/migration.sql
+--script > migrations/$VER_MIGRATE0/migration.sql
 
-mkdir -p migrations/$VER_MIGRATE0
+mkdir -p migrations/$VER_MIGRATE
 
 npx prisma migrate diff \
 --to-migrations "./migrations" \
 --from-url "$DATABASE_URL" \
 --shadow-database-url "$SHADOW_DATABASE_URL" \
---script > migrations/$VER_MIGRATE0/migration.sql
+--script > migrations/$VER_MIGRATE/migration.sql
 
-echo $VER_MIGRATE
-cat migrations/$VER_MIGRATE/migration.sql
 echo $VER_MIGRATE0
 cat migrations/$VER_MIGRATE0/migration.sql
+echo $VER_MIGRATE
+cat migrations/$VER_MIGRATE/migration.sql
+
 
 npx prisma migrate resolve --applied $VER_MIGRATE0
 

@@ -14,7 +14,7 @@ model Order {
   price      Int
   type       String  @default("full")
   hostId     BigInt
-  end        Boolean
+  end        Boolean?
   background Int
   User       User    @relation(fields: [hostId], references: [id])
 }
@@ -25,7 +25,7 @@ model User {
   last_update DateTime @default(now())
   type        String
   balance     Int      @default(0)
-  discount    Int?
+  discount    Int
   language    String
   type_date   String
   banned      Boolean  @default(false)
