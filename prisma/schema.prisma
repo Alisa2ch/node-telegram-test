@@ -28,4 +28,5 @@ model Order {
   type String @default("full")
   hostId BigInt
   host User @relation(fields: [hostId], references: [id])
+  end Boolean
 }
