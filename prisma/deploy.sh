@@ -111,7 +111,7 @@ mkdir -p ./migrations/$VER_MIGRATE0
 
 npx prisma migrate diff \
 --from-empty \
---to-schema-datamodel ./current.prisma\
+--to-schema-datamodel ./current.prisma \
 --script > ./migrations/$VER_MIGRATE0/migration.sql
 
 npx prisma migrate resolve --applied $VER_MIGRATE0
