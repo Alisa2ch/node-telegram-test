@@ -118,7 +118,7 @@ npx prisma migrate resolve --applied $VER_MIGRATE0
 
 mkdir -p ./migrations/$VER_MIGRATE
 
-npx prisma migrate diff --from-migrations ./prisma/migrations \
+npx prisma migrate diff --from-migrations ./migrations \
 --to-schema-datamodel "./schema.prisma" \
 --shadow-database-url "$SHADOW_DATABASE_URL" \
 --script > ./migrations/$VER_MIGRATE/migration.sql
