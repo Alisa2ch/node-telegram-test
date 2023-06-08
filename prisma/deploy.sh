@@ -106,8 +106,6 @@ echo 'datasource db {
     url      = env("DATABASE_URL")
 }' >> ./current.prisma
 
-
-
 mkdir -p ./migrations/$VER_MIGRATE0
 
 touch migrations/migration_lock.toml
@@ -136,5 +134,5 @@ cat migrations/$VER_MIGRATE/migration.sql
 
 npx prisma migrate deploy
 
-sleep 10000
+# sleep 10000
 
