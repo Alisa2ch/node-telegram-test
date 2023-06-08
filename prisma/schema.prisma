@@ -3,31 +3,31 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model Order {
+  id         Int     @id @default(autoincrement())
+  name       String?
+  price      Int
+  type       String  @default("full")
+  hostId     BigInt
+  end        Boolean
+  background Int
+  User       User    @relation(fields: [hostId], references: [id])
 }
 
 model User {
   id          BigInt   @id @unique
   date_create DateTime @default(now())
-  last_update DateTime @default(now()) @updatedAt
+  last_update DateTime @default(now())
   type        String
   balance     Int      @default(0)
-  discount    Int
+  discount    Int?
   language    String
   type_date   String
   banned      Boolean  @default(false)
-  orders      Order[]
-}
-
-model Order {
-  id  Int @id @default(autoincrement())
-  name String?
-  price Int
-  type String @default("full")
-  hostId BigInt
-  host User @relation(fields: [hostId], references: [id])
-  end Boolean
-  background Int
+  Order       Order[]
 }

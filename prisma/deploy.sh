@@ -1,6 +1,8 @@
 #!/bin/bash
-VER_MIGRATE0="0.0.1.$(shuf -i 0-100000 -n 1)"
-VER_MIGRATE="0.0.1.$(shuf -i 0-100000 -n 1)"
+# VER_MIGRATE="0.0.1.$(shuf -i 0-100000 -n 1)"
+
+VER_MIGRATE0="$(date +"%Y%m%d%H%M%S")_0.0.1"
+VER_MIGRATE="$(date +"%Y%m%d%H%M%S")_0.0.2"
 
 echo $VER_MIGRATE0
 echo $VER_MIGRATE
