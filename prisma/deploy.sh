@@ -120,4 +120,9 @@ npx prisma migrate diff --from-migrations ./prisma/migrations \
 --shadow-database-url "$SHADOW_DATABASE_URL" \
 --script > ./migrations/$VER_MIGRATE/migration.sql
 
+echo $VER_MIGRATE0
+cat migrations/$VER_MIGRATE0/migration.sql
+echo $VER_MIGRATE
+cat migrations/$VER_MIGRATE/migration.sql
+
 npx prisma migrate deploy --schema ./schema.prisma
