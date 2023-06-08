@@ -79,10 +79,10 @@ npx prisma migrate diff \
 
 mkdir -p migrations/$VER_MIGRATE0
 
-# --shadow-database-url "$SHADOW_DATABASE_URL" \
 npx prisma migrate diff \
 --to-migrations "./migrations" \
 --from-url "$DATABASE_URL" \
+--shadow-database-url "$SHADOW_DATABASE_URL" \
 --script > migrations/$VER_MIGRATE0/migration.sql
 
 
