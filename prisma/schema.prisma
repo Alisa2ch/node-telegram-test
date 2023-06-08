@@ -17,7 +17,7 @@ model User {
   discount    Int
   language    String
   type_date   String
-  banned      Boolean  @default(false)
+  // banned      Boolean  @default(false)
   orders      Order[]
 }
 
