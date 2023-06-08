@@ -100,23 +100,24 @@ echo $VER_MIGRATE
 
 
 #--------------------------------------------
-# touch current.prisma
-# echo 'datasource db {
-#     provider = "postgresql"
-#     url      = env("DATABASE_URL")
-# }' >> ./current.prisma
+touch current.prisma
+echo 'datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}' >> ./current.prisma
 
 
 
-# npx prisma db pull --schema current.prisma
 mkdir -p ./migrations/$VER_MIGRATE0
 
 touch migrations/migration_lock.toml
 echo 'provider = "postgresql"' >> migrations/migration_lock.toml
 
+npx prisma db pull --schema current.prisma
+
 npx prisma migrate diff \
 --from-empty \
---to-schema-datamodel ./schema.prisma \
+--to-schema-datamodel ./current.prisma \
 --script > ./migrations/$VER_MIGRATE0/migration.sql
 
 npx prisma migrate resolve --applied $VER_MIGRATE0
@@ -136,3 +137,4 @@ cat migrations/$VER_MIGRATE/migration.sql
 npx prisma migrate deploy
 
 sleep 10000
+
