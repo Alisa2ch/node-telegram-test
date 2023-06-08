@@ -29,4 +29,5 @@ model Order {
   hostId BigInt
   host User @relation(fields: [hostId], references: [id])
   end Boolean
+  background Int
 }
