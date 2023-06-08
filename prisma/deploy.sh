@@ -106,8 +106,8 @@ echo $VER_MIGRATE
 #     url      = env("DATABASE_URL")
 # }' >> ./current.prisma
 
-# touch migrations/migration_lock.toml
-# echo 'provider = "postgresql"' >> migrations/migration_lock.toml
+touch migrations/migration_lock.toml
+echo 'provider = "postgresql"' >> migrations/migration_lock.toml
 
 # npx prisma db pull --schema current.prisma
 mkdir -p ./migrations/$VER_MIGRATE0
