@@ -8,6 +8,23 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
+enum typeUser {
+  BASIC
+  TESTER
+  ADMIN
+}
+model User {
+  id          BigInt   @id @unique
+  date_create DateTime @default(now())
+  last_update DateTime @default(now())
+  type        typeUser
+  balance     Int      @default(0)
+  discount    Int
+  language    String
+  type_date   String
+  banned      Boolean  @default(false)
+  Order       Order[]
+}
 model Order {
   id         Int     @id @default(autoincrement())
   name       String?
@@ -19,15 +36,4 @@ model Order {
   User       User    @relation(fields: [hostId], references: [id])
 }
 
-model User {
-  id          BigInt   @id @unique
-  date_create DateTime @default(now())
-  last_update DateTime @default(now())
-  type        String
-  balance     Int      @default(0)
-  discount    Int
-  language    String
-  type_date   String
-  banned      Boolean  @default(false)
-  Order       Order[]
-}
+
