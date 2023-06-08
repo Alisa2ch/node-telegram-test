@@ -65,34 +65,59 @@ echo $VER_MIGRATE
 # DATABASE_URL="$DATABASE_URL?schema=local" npx prisma migrate deploy
 # DATABASE_URL="$DATABASE_URL?schema=prod" npx prisma migrate deploy
 
-mkdir -p migrations/$VER_MIGRATE0
+# mkdir -p migrations/$VER_MIGRATE0
 
-touch migrations/migration_lock.toml
-echo 'provider = "postgresql"' >> migrations/migration_lock.toml
+# touch migrations/migration_lock.toml
+# echo 'provider = "postgresql"' >> migrations/migration_lock.toml
 
-# npx prisma db push --preview-feature
-# --from-migrations ./migrations\
+# # npx prisma db push --preview-feature
+# # --from-migrations ./migrations\
+# # --shadow-database-url "$SHADOW_DATABASE_URL" \
+
+# npx prisma migrate diff \
+# --to-schema-datamodel "./schema.prisma" \
+# --from-url "$DATABASE_URL" \
+# --script > migrations/$VER_MIGRATE0/migration.sql
+
+# mkdir -p migrations/$VER_MIGRATE
+
+# npx prisma migrate diff \
+# --to-migrations "./migrations" \
+# --from-url "$DATABASE_URL" \
 # --shadow-database-url "$SHADOW_DATABASE_URL" \
+# --script > migrations/$VER_MIGRATE/migration.sql
+
+# echo $VER_MIGRATE0
+# cat migrations/$VER_MIGRATE0/migration.sql
+# echo $VER_MIGRATE
+# cat migrations/$VER_MIGRATE/migration.sql
+
+
+# npx prisma migrate resolve --applied $VER_MIGRATE0
+
+# npx prisma migrate deploy
+
+touch current.prisma
+echo 'datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}' >> ./current.prisma
+
+npx prisma db pull --schema current.prisma
+mkdir -p ./migrations/$VER_MIGRATE0
 
 npx prisma migrate diff \
---to-schema-datamodel "./schema.prisma" \
---from-url "$DATABASE_URL" \
---script > migrations/$VER_MIGRATE0/migration.sql
-
-mkdir -p migrations/$VER_MIGRATE
-
-npx prisma migrate diff \
---to-migrations "./migrations" \
---from-url "$DATABASE_URL" \
---shadow-database-url "$SHADOW_DATABASE_URL" \
---script > migrations/$VER_MIGRATE/migration.sql
-
-echo $VER_MIGRATE0
-cat migrations/$VER_MIGRATE0/migration.sql
-echo $VER_MIGRATE
-cat migrations/$VER_MIGRATE/migration.sql
-
+--from-empty \
+--to-schema-datamodel ./current.prisma\
+--script > prisma/migrations/$VER_MIGRATE0/migration.sql
 
 npx prisma migrate resolve --applied $VER_MIGRATE0
 
-npx prisma migrate deploy
+mkdir -p ./migrations/$VER_MIGRATE
+
+npx prisma migrate diff --from-migrations ./prisma/migrations \
+--to-schema-datamodel "./schema.prisma" \
+--shadow-database-url "$SHADOW_DATABASE_URL" \
+--script > ./migrations/$VER_MIGRATE/migration.sql
+
+npx prisma migrate deploy --schema ./schema.prisma
