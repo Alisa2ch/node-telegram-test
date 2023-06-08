@@ -17,6 +17,7 @@ model User {
   discount    Int
   language    String
   type_date   String
+  fsjkdflsa String
   // banned      Boolean  @default(false)
   orders      Order[]
 }
@@ -30,4 +31,5 @@ model Order {
   host User @relation(fields: [hostId], references: [id])
   end Boolean
   background Int
+  sdfsad String
 }
