@@ -10,20 +10,38 @@ const bot = new Bot(process.env.TELEGRAM_TOKEN as string, {
 	}
 });
 
+const Role: { [x: string]: 'BASIC' | 'TESTER' | 'ADMIN'} = {
+	BASIC: 'BASIC',
+	TESTER: 'TESTER',
+	ADMIN: 'ADMIN',
+  }
+  
+type Role = typeof Role[keyof typeof Role]
+
 bot.command('start', async (ctx) => {
 	logger.info(ctx?.from?.id);
 	// console.log(ctx.from != null, ctx?.from?.hasOwnProperty('id'))
 	if(ctx.from != null && ctx.from.hasOwnProperty('id')){
 		try{
-			const user = await prisma.user.create({
-				data: {
-					id: ctx.from.id,
-					type: 'basic',
-					language: 'en',
-					type_date: 'ddmmyyyy',
+			const user = await prisma.user.findUnique({
+				where: {
+					id: ctx.from.id
 				}
-			})
-			logger.info(user);
+			});
+			if(user != null){
+				const newUser = await prisma.user.create({
+					data: {
+						id: ctx.from.id,
+						type: Role.BASIC,
+						language: 'en',
+						type_date: 'ddmmyyyy',
+					}
+				})
+				logger.info(newUser);
+			}else{
+				logger.info(user);
+			}
+
 		} catch(e){
 			logger.error(e);
 		}
@@ -36,15 +54,15 @@ bot.command('start', async (ctx) => {
 	}
 })
 
-// bot.on('message:photo', async ctx => {
-// 	// console.log(ctx);
-// 	const userLang = await prisma.user.findUnique({
-// 		where: {
-// 			id: ctx.from?.id
-// 		}
-// 	})
-// 	await ctx.reply(JSON.stringify(userLang?.language));
-// })
+bot.on('message:photo', async ctx => {
+	const user = await prisma.user.findUnique({
+		where: {
+			id: ctx.from?.id
+		}
+	})
+	logger.info(user)
+	await ctx.reply(JSON.stringify(user?.language));
+})
 
 const server = express();
 server.use(express.json());
