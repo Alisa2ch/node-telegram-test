@@ -2,6 +2,7 @@ import { Bot, webhookCallback } from 'grammy';
 import { PrismaClient } from '@prisma/client';
 import logger from './logger';
 import express from 'express';
+import { channel } from 'diagnostics_channel';
 
 const prisma = new PrismaClient();
 const bot = new Bot(process.env.TELEGRAM_TOKEN as string, {
@@ -28,7 +29,7 @@ bot.command('start', async (ctx) => {
 					id: ctx.from.id
 				}
 			});
-			if(user != null){
+			if(user == null){
 				const newUser = await prisma.user.create({
 					data: {
 						id: ctx.from.id,
@@ -55,6 +56,7 @@ bot.command('start', async (ctx) => {
 })
 
 bot.on('message:photo', async ctx => {
+	try{
 	const user = await prisma.user.findUnique({
 		where: {
 			id: ctx.from?.id
@@ -62,6 +64,9 @@ bot.on('message:photo', async ctx => {
 	})
 	logger.info(user)
 	await ctx.reply(JSON.stringify(user?.language));
+	} catch(e){
+		logger.error(e);
+	}
 })
 
 const server = express();
