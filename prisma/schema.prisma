@@ -8,7 +8,7 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-enum typeUser {
+enum Role {
   BASIC
   TESTER
   ADMIN
@@ -17,9 +17,9 @@ model User {
   id          BigInt   @id @unique
   date_create DateTime @default(now())
   last_update DateTime @default(now())
-  type        typeUser
+  type        Role     
   balance     Int      @default(0)
-  discount    Int
+  discount    Int      @default(0)
   language    String
   type_date   String
   banned      Boolean  @default(false)
