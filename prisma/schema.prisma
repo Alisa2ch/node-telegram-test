@@ -23,6 +23,8 @@ model User {
   language    String
   type_date   String
   banned      Boolean  @default(false)
+  logging     Boolean  @default(true)
+  notificaton Boolean  @default(true)
   Order       Order[]
 }
 model Order {
