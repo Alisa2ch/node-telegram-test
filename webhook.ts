@@ -1,4 +1,4 @@
-import { Bot, webhookCallback } from 'grammy';
+import { Bot, Keyboard, webhookCallback } from 'grammy';
 import { PrismaClient } from '@prisma/client';
 import logger from './logger';
 import express from 'express';
@@ -49,7 +49,15 @@ bot.command('start', async (ctx) => {
 
 	}
 	try{
-		await ctx.reply("welcome");
+		const keyboard = new Keyboard()
+  .text("Yes, they certainly are").row()
+  .text("I'm not quite sure").row()
+  .text("No. 😈")
+  .resized();
+
+		await ctx.reply("welcome", {
+			reply_markup: keyboard,
+		});
 	} catch(e){
 		logger.error(e);
 	}
