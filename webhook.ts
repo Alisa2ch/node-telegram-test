@@ -53,6 +53,7 @@ bot.command('start', async (ctx) => {
   .text("Yes, they certainly are").row()
   .text("I'm not quite sure").row()
   .text("No. 😈")
+  .text("Yes. 😈")
   .resized();
 
 		await ctx.reply("welcome", {

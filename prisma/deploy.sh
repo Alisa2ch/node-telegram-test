@@ -22,7 +22,7 @@ npx prisma migrate diff \
 --from-empty \
 --to-schema-datamodel ./current.prisma \
 --script > ./migrations/$VER_MIGRATE0/migration.sql
-
+`
 npx prisma migrate resolve --applied $VER_MIGRATE0
 
 mkdir -p ./migrations/$VER_MIGRATE
