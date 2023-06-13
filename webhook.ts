@@ -36,6 +36,7 @@ bot.command('start', async (ctx) => {
 						type: Role.BASIC,
 						language: 'en',
 						type_date: 'ddmmyyyy',
+						referral: ctx.match
 					}
 				})
 				logger.info(newUser);
