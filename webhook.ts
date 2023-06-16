@@ -1,11 +1,24 @@
-import { Bot, Keyboard, webhookCallback } from 'grammy';
+import { Bot, Keyboard, webhookCallback, session, SessionFlavor, Context } from 'grammy';
 import { PrismaClient } from '@prisma/client';
+
+import {
+	type Conversation,
+	type ConversationFlavor,
+	conversations,
+	createConversation,
+  } from "@grammyjs/conversations";  
 import logger from './logger';
 import express from 'express';
-import { channel } from 'diagnostics_channel';
 
 const prisma = new PrismaClient();
-const bot = new Bot(process.env.TELEGRAM_TOKEN as string, {
+
+interface SessionData {
+}
+
+type customContext = Context & SessionFlavor<SessionData> & ConversationFlavor;
+type customConversation = Conversation<customContext>
+
+const bot = new Bot<customContext>(process.env.TELEGRAM_TOKEN as string, {
 	client: {
 		apiRoot: process.env.TELEGRAM_SERVER || ''
 	}
@@ -18,6 +31,15 @@ const Role: { [x: string]: 'BASIC' | 'TESTER' | 'ADMIN'} = {
   }
   
 type Role = typeof Role[keyof typeof Role]
+const initial = (): SessionData => {
+	return {};
+}
+
+bot.use(session({
+	initial
+  }));
+
+bot.use(conversations());
 
 bot.command('start', async (ctx) => {
 	logger.info(ctx?.from?.id);
@@ -36,7 +58,7 @@ bot.command('start', async (ctx) => {
 						type: Role.BASIC,
 						language: 'en',
 						type_date: 'ddmmyyyy',
-						referral: ctx.match
+						referral: ctx.match || ""
 					}
 				})
 				logger.info(newUser);
