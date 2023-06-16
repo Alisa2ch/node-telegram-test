@@ -35,11 +35,18 @@ const initial = (): SessionData => {
 	return {};
 }
 
+const testConversation = async (conversation: customConversation, ctx: customContext) => {
+	await ctx.reply("Wellcome to conversation 'test'\nEnter your name");
+	const name = await conversation.form.text();
+	await ctx.reply(`Your name: ${name}`);
+}
+
 bot.use(session({
 	initial
   }));
 
 bot.use(conversations());
+bot.use(createConversation(testConversation));
 
 bot.command('start', async (ctx) => {
 	logger.info(ctx?.from?.id);
@@ -65,26 +72,26 @@ bot.command('start', async (ctx) => {
 			}else{
 				logger.info(user);
 			}
-
+			await ctx.conversation.enter("testConversation")
 		} catch(e){
 			logger.error(e);
 		}
 
 	}
-	try{
-		const keyboard = new Keyboard()
-  .text("Yes, they certainly are").row()
-  .text("I'm not quite sure").row()
-  .text("No. 😈")
-  .text("Yes. 😈")
-  .resized();
+// 	try{
+// 		const keyboard = new Keyboard()
+//   .text("Yes, they certainly are").row()
+//   .text("I'm not quite sure").row()
+//   .text("No. 😈")
+//   .text("Yes. 😈")
+//   .resized();
 
-		await ctx.reply("welcome", {
-			reply_markup: keyboard,
-		});
-	} catch(e){
-		logger.error(e);
-	}
+// 		await ctx.reply("welcome", {
+// 			reply_markup: keyboard,
+// 		});
+// 	} catch(e){
+// 		logger.error(e);
+// 	}
 })
 
 bot.on('message:photo', async ctx => {
