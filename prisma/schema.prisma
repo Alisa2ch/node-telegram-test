@@ -24,7 +24,7 @@ enum typeDocument {
 model User {
   id          BigInt   @id @unique
   date_create DateTime @default(now())
-  last_update DateTime @default(now())
+  last_update DateTime @updatedAt
   type        Role     
   balance     Int      @default(0)
   discount    Int      @default(0)
@@ -33,7 +33,7 @@ model User {
   banned      Boolean  @default(false)
   logging     Boolean  @default(true)
   notificaton Boolean  @default(true)
-  referral    String   @default("")
+  referral    String   
   Order       Order[]
 }
 model Order {
