@@ -68,6 +68,7 @@ const testConversation = async (conversation: customConversation, ctx: customCon
 	await ctx.reply("Wellcome to conversation 'test'\nEnter name ask");
 	const name: string = await conversation.form.text();
 	const asks = await conversation.external(() => getAskForConv(name));
+	logger.info(asks);
 	for (let indexAsk = 0; indexAsk < asks.length; indexAsk++) {
 		const {ask, validate} = asks[indexAsk];
 		let checkValidate: boolean = !false;
@@ -82,7 +83,6 @@ const testConversation = async (conversation: customConversation, ctx: customCon
 			}
 		}
 	}
-	await ctx.reply(`Your name: ${name}`);
 }
 
 bot.use(session({
