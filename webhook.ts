@@ -57,6 +57,7 @@ const initial = (): SessionData => {
 }
 
 const getAskForConv = async (name: string) => {
+	logger.info(await prisma.dataForConv.findMany());
 	return await prisma.dataForConv.findMany({
 		where: {
 			name
