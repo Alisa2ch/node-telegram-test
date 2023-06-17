@@ -47,4 +47,9 @@ model Order {
   User       User    @relation(fields: [hostId], references: [id])
 }
 
-
+model DataForConv {  
+  id         Int     @id @default(autoincrement())
+  name       String
+  ask        String
+  validate   String
+}
