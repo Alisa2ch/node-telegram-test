@@ -15,7 +15,11 @@ const prisma = new PrismaClient();
 interface SessionData {
 }
 
-const validations = {
+interface Validate {
+	[name: string]: (arg: string) => boolean;
+}
+
+const validations:Validate = {
 	date: (date: string): boolean => {
 		const reg = /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/; 
 		return reg.test(date)
